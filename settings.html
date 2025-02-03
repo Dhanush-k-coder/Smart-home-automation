@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="location.href='index.html'">Home</button>
+    </div>
+
+    <div class="settings-content">
+        <h2>Device Settings</h2>
+        <div class="device" id="device1">
+            <label>Light</label>
+            <button onclick="toggleConnection('device1')">Connect</button>
+        </div>
+
+        <div class="device" id="device2">
+            <label>Fan</label>
+            <button onclick="toggleConnection('device2')">Connect</button>
+        </div>
+
+        <div class="device" id="device3">
+            <label>AC</label>
+            <button onclick="toggleConnection('device3')">Connect</button>
+        </div>
+
+        <div class="device" id="device4">
+            <label>Refrigerator</label>
+            <button onclick="toggleConnection('device4')">Connect</button>
+        </div>
+
+        <div class="device" id="device5">
+            <label>Washing Machine</label>
+            <button onclick="toggleConnection('device5')">Connect</button>
+        </div>
+
+        <div class="device" id="device6">
+            <label>Doors</label>
+            <button onclick="toggleConnection('device6')">Connect</button>
+        </div>
+
+        <!-- Done Button -->
+        <button onclick="saveSettings()" id="done-button">Done</button>
+    </div>
+
+    <script>
+        // Function to toggle device connection
+        function toggleConnection(deviceId) {
+            const deviceElement = document.getElementById(deviceId);
+            const button = deviceElement.querySelector('button');
+            if (button.textContent === 'Connect') {
+                button.textContent = 'Disconnect';
+                button.style.backgroundColor = '#d9534f'; // Red for disconnect
+            } else {
+                button.textContent = 'Connect';
+                button.style.backgroundColor = '#5757a3'; // Original color for connect
+            }
+        }
+
+        // Function to save settings to localStorage and navigate to home.html
+        function saveSettings() {
+            const connectedDevices = [];
+            const allDevices = ['device1', 'device2', 'device3', 'device4', 'device5', 'device6'];
+
+            // Loop through all devices to check if they are connected
+            allDevices.forEach(deviceId => {
+                const button = document.querySelector(`#${deviceId} button`);
+                if (button.textContent === 'Disconnect') {
+                    connectedDevices.push(deviceId);
+                }
+            });
+
+            // Save connected devices to localStorage
+            localStorage.setItem('connectedDevices', JSON.stringify(connectedDevices));
+
+            // Navigate to home.html
+            location.href = 'home.html';
+        }
+
+        // Initialize device states when the page is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDeviceStates();
+        });
+
+        // Function to update the device states based on localStorage
+        function updateDeviceStates() {
+            const connectedDevices = JSON.parse(localStorage.getItem('connectedDevices')) || [];
+
+            // Loop through all devices and update the button text to "Disconnect" for connected devices
+            const allDevices = ['device1', 'device2', 'device3', 'device4', 'device5', 'device6'];
+            allDevices.forEach(deviceId => {
+                const button = document.querySelector(`#${deviceId} button`);
+                if (connectedDevices.includes(deviceId)) {
+                    button.textContent = 'Disconnect';
+                    button.style.backgroundColor = '#d9534f'; // Red for disconnect
+                } else {
+                    button.textContent = 'Connect';
+                    button.style.backgroundColor = '#5757a3'; // Original color for connect
+                }
+            });
+        }
+    </script>
+</body>
+</html>

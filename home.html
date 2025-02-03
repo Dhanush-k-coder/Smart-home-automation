@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Automation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='settings.html'">Settings</button>
+        <button onclick="location.href='login.html'">Logout</button>
+    </div>
+
+    <div class="home-devices">
+        <h2>Control Devices</h2>
+
+        <div class="device" id="device1">
+            <label>Light</label>
+            <button onclick="toggleLight()">On</button>
+        </div>
+
+        <div class="device" id="device2">
+            <label>Fan</label>
+            <button onclick="openFanRegulator()">Regulator</button>
+        </div>
+
+        <div class="device" id="device3">
+            <label>AC</label>
+            <button onclick="openACTemperatureControl()">Temperature Control</button>
+        </div>
+
+        <div class="device" id="device4">
+            <label>Refrigerator</label>
+            <button onclick="openRefrigeratorControl()">Temperature Control</button>
+        </div>
+
+        <div class="device" id="device5">
+            <label>Washing Machine</label>
+            <button onclick="openWashingMachineTimer()">Time Options</button>
+        </div>
+
+        <div class="device" id="device6">
+            <label>Doors</label>
+            <button onclick="toggleDoorLock()">Lock</button>
+        </div>
+    </div>
+
+    <script>
+        // Load connected devices from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const connectedDevices = JSON.parse(localStorage.getItem('connectedDevices')) || [];
+
+            // Hide devices that are not connected
+            const allDevices = ['device1', 'device2', 'device3', 'device4', 'device5', 'device6'];
+            allDevices.forEach(deviceId => {
+                if (!connectedDevices.includes(deviceId)) {
+                    document.getElementById(deviceId).style.display = 'none';
+                }
+            });
+        });
+
+        function toggleLight() {
+            const button = document.querySelector('#device1 button');
+            button.textContent = button.textContent === 'On' ? 'Off' : 'On';
+        }
+
+        function openFanRegulator() {
+            const speed = prompt('Set Fan Speed (1-5):', '3');
+            if (speed !== null) alert(`Fan speed set to ${speed}`);
+        }
+
+        function openACTemperatureControl() {
+            const temp = prompt('Set AC Temperature (16-30°C):', '24');
+            if (temp !== null) alert(`AC temperature set to ${temp}°C`);
+        }
+
+        function openRefrigeratorControl() {
+            const temp = prompt('Set Refrigerator Temperature (1-10°C):', '4');
+            if (temp !== null) alert(`Refrigerator temperature set to ${temp}°C`);
+        }
+
+        function openWashingMachineTimer() {
+            const time = prompt('Set Washing Time (minutes):', '30');
+            if (time !== null) alert(`Washing machine time set to ${time} minutes`);
+        }
+
+        function toggleDoorLock() {
+            const button = document.querySelector('#device6 button');
+            button.textContent = button.textContent === 'Lock' ? 'Unlock' : 'Lock';
+        }
+    </script>
+</body>
+</html>

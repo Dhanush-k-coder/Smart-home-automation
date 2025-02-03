@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Security Pin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="location.href='index.html'">Home</button>
+    </div>
+
+    <div class="form-container">
+        <h2>Set Security Pin</h2>
+        <input type="password" id="pin" placeholder="Enter Pin" required><br>
+        <input type="password" id="confirmPin" placeholder="Confirm Pin" required><br>
+        <button onclick="verifyPin()">Continue</button>
+        <p id="error-message" style="color:red; display:none;">Pins do not match. Please try again.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
